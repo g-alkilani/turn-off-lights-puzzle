@@ -25,7 +25,7 @@ public class Puzzle {
     public void display() {
         rootPanel = new JPanel(null);
         rootPanel.add(createGameField());
-        rootPanel.add(completionLabel());
+        rootPanel.add(createNewGameButton());
         frame.add(rootPanel);
         frame.setVisible(true);
     }
@@ -39,6 +39,11 @@ public class Puzzle {
             }
         }
         return true;
+    }
+
+    public void startNewGame() {
+        prepareGrid();
+        updatePuzzle();
     }
 
     public void updateState(int x, int y) {
@@ -98,6 +103,7 @@ public class Puzzle {
     public void endTheGame() {
         rootPanel.removeAll();
         rootPanel.add(createGameField());
+        rootPanel.add(createNewGameButton());
         rootPanel.add(completionLabel());
         rootPanel.revalidate();
         rootPanel.repaint();
@@ -113,8 +119,16 @@ public class Puzzle {
     private void updatePuzzle() {
         rootPanel.removeAll();
         rootPanel.add(createGameField());
+        rootPanel.add(createNewGameButton());
         rootPanel.revalidate();
         rootPanel.repaint();
+    }
+
+    private Component createNewGameButton() {
+        JButton jButton = new JButton("New game");
+        jButton.setBounds(450, 450, 100, 30);
+        jButton.addMouseListener(new NewGameButtonListener(this));
+        return jButton;
     }
 
 }
